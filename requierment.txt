@@ -1,0 +1,10 @@
+happytransformer
+transformers
+torch==1.4.0 
+numpy==1.17
+pyarrow==6.0.0 
+pandas
+requests==2.19.0 
+tensorflow
+keras
+flask
