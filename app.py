@@ -5,7 +5,7 @@ from happytransformer import HappyGeneration, GENSettings
 
 
 # Initializing the flask app
-app = Flask(__name__,template_folder='templates')
+app = Flask(__name__,template_folder='template')
 
 happy_gen = HappyGeneration("GPT-NEO", "EleutherAI/gpt-neo-125M")
 
@@ -48,19 +48,6 @@ def generate_text():
     data = request.json
     keywords = data['keywords']
 
-    # Check format of keywords and convert to list
-    if isinstance(keywords, str):
-        # Check if keywords are comma-separated
-        if "," in keywords:
-            keywords_list = keywords.split(",")
-        else:
-            # Check if keywords are bulleted list
-            keywords_list = re.findall(r"[\*•]\s*(\w+)", keywords)
-    elif isinstance(keywords, list):
-        keywords_list = keywords
-    else:
-        return jsonify({'error': 'Invalid format for keywords'})
-    
     #Creating the prompt
     def create_prompt(training_cases, keywords):
         keywords = ", ".join(keywords)
@@ -80,4 +67,4 @@ def generate_text():
     return jsonify({"output_text": output_text})
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(debug=True)
